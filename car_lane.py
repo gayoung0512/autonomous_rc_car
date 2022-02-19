@@ -3,7 +3,7 @@ import numpy as np
 import math
 import itertools
 
-cap = cv2.VideoCapture("car_test_3.mp4")
+cap = cv2.cv2.VideoCapture(0)
 
 trap_bottom_width=3.4#사다리꼴 아래쪽 가장자리 너비 계산 위한 백분율
 trap_top_width=0.8 # 사다리꼴 위쪽 가장자리 너비 계산을 위한 백분율
