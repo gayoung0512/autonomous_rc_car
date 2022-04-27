@@ -1,0 +1,94 @@
+#define DIRA               4       // Motor A Direction  (A 회전방향)
+#define DIRB               7       // Motor B Direction  (B 회전방향)- B,D 오른쪽 A,C 왼쪽
+#define DIRC               2
+#define DIRD               19
+#define PWMA               5       // Motor A PWM        (A 속도)
+#define PWMB               6       // Motor B PWM        (B 속도)
+#define PWMC               3       // Motor C PWM        (B 속도)
+#define PWMD               10
+
+// D  B
+// A  C
+
+void setup() {
+  Serial.begin(9600);  
+}
+int origin(int fo, int ri, int le, int ba){
+  fo = 130;
+  ri = 50;
+  le = 50;
+  ba = 120;
+  return fo, ri,le ,ba;
+  }
+void loop() {
+int scan=1;
+int fo=130;
+int ri=50;
+int le=50;
+int ba=120;
+  if(Serial.available()) {
+    char r_data = Serial.read(); 
+    Serial.print(r_data);
+    
+  if (scan == 1){fo = 100;}//오르막(속도 올리기)
+  if (scan == 0){origin(fo, ri, le, ba);}// 내리막(원래속도로)
+  if (scan == 2){ri = 70; le = 70;}//로터리(회전각 조정)
+  if (scan == 3){fo = 160;}// 터널 (속도 줄이기)
+    Serial.print(fo);
+    Serial.print(ri);
+    Serial.print(le);
+    Serial.print(ba);
+    Serial.print(scan);
+    Serial.print("\n");
+  if(r_data=='F'){ //전진 평소 130 내리막길 160 오르막길 100
+  digitalWrite(DIRA, HIGH);  
+  analogWrite(PWMA, fo);
+  digitalWrite(DIRB, HIGH);  
+  analogWrite(PWMB, fo);
+  digitalWrite(DIRC, HIGH);  
+  analogWrite(PWMC, fo);
+  digitalWrite(DIRD, HIGH);  
+  analogWrite(PWMD, fo);
+  }
+    if(r_data=='B'){ //후진
+  digitalWrite(DIRA, LOW);  
+  analogWrite(PWMA, ba);
+  digitalWrite(DIRB, LOW);  
+  analogWrite(PWMB, ba);
+  digitalWrite(DIRC, LOW);  
+  analogWrite(PWMC, ba);
+  digitalWrite(DIRD, LOW);  
+  analogWrite(PWMD, ba);
+  }
+    if(r_data=='S'){ //정지
+  digitalWrite(DIRA, LOW); 
+  analogWrite(PWMA, 0);
+  digitalWrite(DIRB, LOW); 
+  analogWrite(PWMB, 0);
+  digitalWrite(DIRC, LOW); 
+  analogWrite(PWMC, 0);
+  digitalWrite(DIRD, LOW); 
+  analogWrite(PWMD, 0);
+  }
+     if(r_data=='L'){ //좌회전 
+  digitalWrite(DIRB, HIGH);  
+  analogWrite(PWMB, le);
+  digitalWrite(DIRC, HIGH);  
+  analogWrite(PWMC, le);
+  digitalWrite(DIRA, HIGH);  
+  analogWrite(PWMA, 225);
+  digitalWrite(DIRD, HIGH);  
+  analogWrite(PWMD, 225);
+  }
+      if(r_data=='R'){ //우회전 
+  digitalWrite(DIRD, HIGH);  
+  analogWrite(PWMD, ri);
+  digitalWrite(DIRA, HIGH);
+  analogWrite(PWMA, ri);
+  digitalWrite(DIRB, HIGH);
+  analogWrite(PWMB, 225);
+  digitalWrite(DIRC, HIGH);
+  analogWrite(PWMC, 22 5);
+  }
+  }
+}
