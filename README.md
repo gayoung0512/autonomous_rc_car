@@ -17,9 +17,11 @@
 <img width="50%" src="https://user-images.githubusercontent.com/74947395/165596015-1a1724ad-7ddb-4b59-b315-538c5d59c657.png"/>
 3) choose ROI: 도로만 감지
 
+
 4) Hough line detect
  
  lines=cv2.HoughLinesP(roi,1,np.pi/180,10,None,120,100)
+
 
 
 5) Seperate left & right Line: detect 
