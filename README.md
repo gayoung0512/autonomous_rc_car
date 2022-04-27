@@ -4,6 +4,7 @@
 ## Raspi: detect car lane
 <img width="50%" src="https://user-images.githubusercontent.com/74947395/165596098-2d16e0e8-af50-4f0f-993b-a5c882b22355.png"/>
 1) yellow & white : 범위 설정 - detect
+    
     lower_white=(200,200,200)
     upper_white=(255,255,255)
 
@@ -15,7 +16,9 @@
 <img width="50%" src="https://user-images.githubusercontent.com/74947395/165596015-1a1724ad-7ddb-4b59-b315-538c5d59c657.png"/>
 3) choose ROI: 도로만 감지
 4) Hough line detect
+ 
  lines=cv2.HoughLinesP(roi,1,np.pi/180,10,None,120,100)
+
 5) Seperate left & right Line: detect 
 6) regression by vanishing point
 7) predict direction
